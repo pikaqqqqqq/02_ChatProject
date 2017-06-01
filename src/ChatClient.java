@@ -29,6 +29,7 @@ public class ChatClient extends Frame {
         });
         setVisible(true);
 
+        System.out.println("update chat1.03");
         System.out.print("creat branch1");
     }
 
