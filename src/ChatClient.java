@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -27,11 +29,18 @@ public class ChatClient extends Frame {
                 System.exit(0);
             }
         });
+        tfTxt.addActionListener(new TFListener());
         setVisible(true);
-
-        System.out.println("update chat1.03");
-        System.out.print("creat branch1");
     }
 
+    //1.04添加回车监听，完成文字传送
+    private class TFListener implements ActionListener{
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String s = tfTxt.getText().trim();
+            taContent.setText(s);
+            tfTxt.setText("");
+        }
+    }
 }
