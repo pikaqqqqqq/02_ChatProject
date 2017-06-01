@@ -9,27 +9,46 @@ import java.net.Socket;
 public class ChatServer {
 
     //1.05创建server端
-    public static void main(String[] args){
+    public static void main(String[] args) {
         boolean started = false;
+        ServerSocket ss = null;
+        Socket s = null;
+        DataInputStream dis = null;
+
         try {
-            ServerSocket ss = new ServerSocket(8888);
+            ss = new ServerSocket(8888);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             started = true;
-            while (started){
+            while (started) {
                 boolean bConnected = false;
-                Socket s = ss.accept();
-System.out.println("a client connected");
+                s = ss.accept();
+                System.out.println("a client connected");
                 bConnected = true;
                 //1.07接收
-                DataInputStream dis = new DataInputStream(s.getInputStream());
-                while (bConnected){
+                dis = new DataInputStream(s.getInputStream());
+                while (bConnected) {
+                    //1.09java.io.EOFException(end of file Exception)文件读取结束（常见的Exception）
                     String str = dis.readUTF();
                     System.out.println(str);
                 }
-                dis.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+
+            //e.printStackTrace();
+            System.out.println("client have been closed");
             //在一个项目中处理Exception也是很重要的
+        } finally {
+            try {
+                //1.09处理server端Exception的一般解决方法
+                if (dis != null) dis.close();
+                if (s != null) s.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
