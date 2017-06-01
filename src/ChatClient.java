@@ -15,9 +15,11 @@ public class ChatClient extends Frame {
     public void launchFrame(){
         setSize(500,500);
         setLocation(500,150);
-        setVisible(true);
         add(taContent,BorderLayout.NORTH);
         add(tfTxt,BorderLayout.SOUTH);
+        this.pack();
+        setVisible(true);
+
         System.out.print("creat branch1");
     }
 
