@@ -1,5 +1,7 @@
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -17,7 +19,10 @@ public class ChatServer {
 
         try {
             ss = new ServerSocket(8888);
-        } catch (IOException e) {
+        }catch (BindException e){
+            System.out.println("端口被占用！！");
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -36,12 +41,13 @@ public class ChatServer {
                     System.out.println(str);
                 }
             }
-        } catch (Exception e) {
-
+        } catch (EOFException e) {
             //e.printStackTrace();
             System.out.println("client have been closed");
             //在一个项目中处理Exception也是很重要的
-        } finally {
+        } catch (IOException e){
+            e.printStackTrace();
+        }finally {
             try {
                 //1.09处理server端Exception的一般解决方法
                 if (dis != null) dis.close();
@@ -51,6 +57,5 @@ public class ChatServer {
             }
         }
     }
-
 
 }
