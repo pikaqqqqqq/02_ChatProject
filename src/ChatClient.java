@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  * Created by think on 2017/5/29.
@@ -31,6 +33,17 @@ public class ChatClient extends Frame {
         });
         tfTxt.addActionListener(new TFListener());
         setVisible(true);
+        connect();
+    }
+
+    //1.06连接Server端
+    public void connect(){
+        try {
+            Socket s = new Socket("127.0.0.1",8888);
+System.out.println("connected");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //1.04添加回车监听，完成文字传送
@@ -43,6 +56,7 @@ public class ChatClient extends Frame {
             tfTxt.setText("");
         }
     }
+
 
 
 
