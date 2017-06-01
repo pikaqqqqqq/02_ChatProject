@@ -31,14 +31,14 @@ public class ChatServer {
             started = true;
             while (started) {
                 boolean bConnected = false;
-                s = ss.accept();
+                s = ss.accept();//accept()是一个阻塞性的方法
                 System.out.println("a client connected");
                 bConnected = true;
                 //1.07接收
                 dis = new DataInputStream(s.getInputStream());
                 while (bConnected) {
                     //1.09java.io.EOFException(end of file Exception)文件读取结束（常见的Exception）
-                    String str = dis.readUTF();
+                    String str = dis.readUTF();//readUTF()是一个阻塞性的方法
                     System.out.println(str);
                 }
             }
