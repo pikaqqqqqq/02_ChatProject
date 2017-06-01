@@ -20,7 +20,8 @@ public class ChatServer {
         try {
             ss = new ServerSocket(8888);
         }catch (BindException e){
-            System.out.println("端口被占用！！");
+            System.out.println("端口被占用！！请关闭该程序或者修改端口。");
+            System.exit(0);
         }
         catch (IOException e) {
             e.printStackTrace();
