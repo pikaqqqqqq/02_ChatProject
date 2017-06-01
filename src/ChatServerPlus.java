@@ -84,7 +84,9 @@ public class ChatServerPlus {
                     e1.printStackTrace();
                 }
             }
-
         }
+
     }
+
+    //1.11将服务器端的接收到的信息传输给客户端 7:00
 }
