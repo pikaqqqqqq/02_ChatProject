@@ -13,5 +13,7 @@ public class ChatClient extends Frame {
         setSize(500,500);
         setLocation(500,150);
         setVisible(true);
+        System.out.print("creat branch1");
     }
+
 }
