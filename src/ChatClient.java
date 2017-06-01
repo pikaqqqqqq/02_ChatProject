@@ -20,6 +20,7 @@ public class ChatClient extends Frame {
         add(taContent,BorderLayout.NORTH);
         add(tfTxt,BorderLayout.SOUTH);
         this.pack();
+        //添加窗口关闭的三种方法：并排的监听器类、内部类、匿名类
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -31,5 +32,5 @@ public class ChatClient extends Frame {
         System.out.print("creat branch1");
     }
 
-    //添加窗口关闭的三种方法：并排的监听器类、内部类、匿名类
+
 }
