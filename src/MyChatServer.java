@@ -1,3 +1,6 @@
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -9,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -36,77 +40,81 @@ public class MyChatServer implements ActionListener {
 
     //构造函数实现界面
     public MyChatServer() {
+        try {
 
-        //BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
-        //org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
 
-        //UIManager.put("RootPane.setupButtonVisible", false);
+            UIManager.put("RootPane.setupButtonVisible", false);
 
-        serverJFrame = new JFrame("Server");
-        serverJFrame.setBounds(391, 90, 588, 563);
-        serverJFrame.setLayout(null);
+            serverJFrame = new JFrame("Server");
+            serverJFrame.setBounds(391, 90, 588, 563);
+            serverJFrame.setLayout(null);
 
-        connectJButton = new JButton("等待连接");
-        //connectJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-        connectJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-        connectJButton.setForeground(Color.WHITE);
-        connectJButton.addActionListener(this);
+            connectJButton = new JButton("等待连接");
+            connectJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+            connectJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+            connectJButton.setForeground(Color.WHITE);
+            connectJButton.addActionListener(this);
 
-        sentJButton = new JButton("发  送");
-        //sentJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-        sentJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-        sentJButton.setForeground(Color.WHITE);
-        sentJButton.addActionListener(this);
+            sentJButton = new JButton("发  送");
+            sentJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+            sentJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+            sentJButton.setForeground(Color.WHITE);
+            sentJButton.addActionListener(this);
 
-        ipJLabel = new JLabel("    本机ip：");
-        ipJLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
-        ipJTextField = new JTextField(15);
-        //ipJTextField.setText(InetAddress.getLocalHost().getHostAddress());
-        ipJTextField.setFont(new Font("微软雅黑", Font.BOLD, 14));
+            ipJLabel = new JLabel("    本机ip：");
+            ipJLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
+            ipJTextField = new JTextField(15);
+            ipJTextField.setText(InetAddress.getLocalHost().getHostAddress());
+            ipJTextField.setFont(new Font("微软雅黑", Font.BOLD, 14));
 
-        portJLabel = new JLabel("本机端口：");
-        portJLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
-        portJTextField = new JTextField(15);
-        portJTextField.setFont(new Font("微软雅黑", Font.BOLD, 14));
+            portJLabel = new JLabel("本机端口：");
+            portJLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
+            portJTextField = new JTextField(15);
+            portJTextField.setFont(new Font("微软雅黑", Font.BOLD, 14));
 
-        JPanel idjPanel = new JPanel();
-        idjPanel.setLayout(new BorderLayout(10, 0));
-        idjPanel.add(ipJLabel, BorderLayout.WEST);
-        idjPanel.add(ipJTextField, BorderLayout.CENTER);
+            JPanel idjPanel = new JPanel();
+            idjPanel.setLayout(new BorderLayout(10, 0));
+            idjPanel.add(ipJLabel, BorderLayout.WEST);
+            idjPanel.add(ipJTextField, BorderLayout.CENTER);
 
-        JPanel passwordjPanel = new JPanel();
-        passwordjPanel.setLayout(new BorderLayout(10, 0));
-        passwordjPanel.add(portJLabel, BorderLayout.WEST);
-        passwordjPanel.add(portJTextField, BorderLayout.CENTER);
+            JPanel passwordjPanel = new JPanel();
+            passwordjPanel.setLayout(new BorderLayout(10, 0));
+            passwordjPanel.add(portJLabel, BorderLayout.WEST);
+            passwordjPanel.add(portJTextField, BorderLayout.CENTER);
 
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new BorderLayout(10, 10));
-        jPanel.add(idjPanel, BorderLayout.NORTH);
-        jPanel.add(passwordjPanel, BorderLayout.CENTER);
+            JPanel jPanel = new JPanel();
+            jPanel.setLayout(new BorderLayout(10, 10));
+            jPanel.add(idjPanel, BorderLayout.NORTH);
+            jPanel.add(passwordjPanel, BorderLayout.CENTER);
 
-        serverJFrame.add(jPanel);
-        serverJFrame.add(inScroll);
-        serverJFrame.add(connectJButton);
-        serverJFrame.add(contentScroll);
-        serverJFrame.add(sentJButton);
+            serverJFrame.add(jPanel);
+            serverJFrame.add(inScroll);
+            serverJFrame.add(connectJButton);
+            serverJFrame.add(contentScroll);
+            serverJFrame.add(sentJButton);
 
-        contentJTextArea.setEditable(false);
-        sentJButton.setBounds(450, 475, 80, 30);
-        contentScroll.setBounds(30, 100, 510, 200);
-        inScroll.setBounds(30, 320, 510, 140);
-        inScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
-        contentScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
-        connectJButton.setBounds(450, 30, 80, 30);
-        jPanel.setBounds(30, 15, 250, 67);
+            contentJTextArea.setEditable(false);
+            sentJButton.setBounds(450, 475, 80, 30);
+            contentScroll.setBounds(30, 100, 510, 200);
+            inScroll.setBounds(30, 320, 510, 140);
+            inScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
+            contentScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
+            connectJButton.setBounds(450, 30, 80, 30);
+            jPanel.setBounds(30, 15, 250, 67);
 
-        serverJFrame.setVisible(true);
+            serverJFrame.setVisible(true);
 
-        serverJFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent arg0) {
-                System.exit(0);
-            }
-        });
+            serverJFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent arg0) {
+                    System.exit(0);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -1,3 +1,6 @@
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -36,80 +39,84 @@ public class MyChatClient implements ActionListener {
     //在构造函数中做界面
     public MyChatClient() {
 
+        try {
 
-        //BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
-        //org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
 
-        //UIManager.put("RootPane.setupButtonVisible", false);
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
 
-        clientJFrame = new JFrame("Client");
-        clientJFrame.setBounds(391, 90, 588, 563);
-        clientJFrame.setLayout(null);
+            UIManager.put("RootPane.setupButtonVisible", false);
 
-        connectJButton = new JButton("连接");
-        //connectJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-        connectJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-        connectJButton.setForeground(Color.WHITE);
-        connectJButton.addActionListener(this);
+            clientJFrame = new JFrame("Client");
+            clientJFrame.setBounds(391, 90, 588, 563);
+            clientJFrame.setLayout(null);
 
-        sentJButton = new JButton("发  送");
-        //sentJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-        sentJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-        sentJButton.setForeground(Color.WHITE);
-        sentJButton.addActionListener(this);
+            connectJButton = new JButton("连接");
+            connectJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+            connectJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+            connectJButton.setForeground(Color.WHITE);
+            connectJButton.addActionListener(this);
 
-        ipJLabel = new JLabel("    服务器ip：");
-        ipJLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
-        ipJTextField = new JTextField(15);
-        ipJTextField.setFont(new Font("微软雅黑", Font.BOLD, 14));
+            sentJButton = new JButton("发  送");
+            sentJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+            sentJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+            sentJButton.setForeground(Color.WHITE);
+            sentJButton.addActionListener(this);
 
-        portJLabel = new JLabel("服务器port：");
-        portJLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
-        portJTextField = new JTextField(15);
-        portJTextField.setFont(new Font("微软雅黑", Font.BOLD, 14));
+            ipJLabel = new JLabel("    服务器ip：");
+            ipJLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
+            ipJTextField = new JTextField(15);
+            ipJTextField.setFont(new Font("微软雅黑", Font.BOLD, 14));
 
-        JPanel idjPanel = new JPanel();
-        idjPanel.setLayout(new BorderLayout(10, 0));
-        idjPanel.add(ipJLabel, BorderLayout.WEST);
-        idjPanel.add(ipJTextField, BorderLayout.CENTER);
+            portJLabel = new JLabel("服务器port：");
+            portJLabel.setFont(new Font("微软雅黑", Font.BOLD, 14));
+            portJTextField = new JTextField(15);
+            portJTextField.setFont(new Font("微软雅黑", Font.BOLD, 14));
 
-        JPanel passwordjPanel = new JPanel();
-        passwordjPanel.setLayout(new BorderLayout(10, 0));
-        passwordjPanel.add(portJLabel, BorderLayout.WEST);
-        passwordjPanel.add(portJTextField, BorderLayout.CENTER);
+            JPanel idjPanel = new JPanel();
+            idjPanel.setLayout(new BorderLayout(10, 0));
+            idjPanel.add(ipJLabel, BorderLayout.WEST);
+            idjPanel.add(ipJTextField, BorderLayout.CENTER);
 
-        JPanel jPanel = new JPanel();
-        jPanel.setLayout(new BorderLayout(10, 10));
-        jPanel.add(idjPanel, BorderLayout.NORTH);
-        jPanel.add(passwordjPanel, BorderLayout.CENTER);
+            JPanel passwordjPanel = new JPanel();
+            passwordjPanel.setLayout(new BorderLayout(10, 0));
+            passwordjPanel.add(portJLabel, BorderLayout.WEST);
+            passwordjPanel.add(portJTextField, BorderLayout.CENTER);
 
-        clientJFrame.add(jPanel);
-        clientJFrame.add(contentScroll);
-        clientJFrame.add(connectJButton);
-        clientJFrame.add(inScroll);
-        clientJFrame.add(sentJButton);
+            JPanel jPanel = new JPanel();
+            jPanel.setLayout(new BorderLayout(10, 10));
+            jPanel.add(idjPanel, BorderLayout.NORTH);
+            jPanel.add(passwordjPanel, BorderLayout.CENTER);
 
-        contentJTextArea.setEditable(false);
-        inScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        inScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        sentJButton.setBounds(450, 475, 80, 30);
-        connectJButton.setBounds(450, 30, 80, 30);
-        contentScroll.setBounds(30, 100, 510, 200);
-        contentScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
-        inScroll.setBounds(30, 320, 510, 140);
-        inScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
-        jPanel.setBounds(30, 15, 250, 67);
+            clientJFrame.add(jPanel);
+            clientJFrame.add(contentScroll);
+            clientJFrame.add(connectJButton);
+            clientJFrame.add(inScroll);
+            clientJFrame.add(sentJButton);
 
-        clientJFrame.setVisible(true);
+            contentJTextArea.setEditable(false);
+            inScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            inScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            sentJButton.setBounds(450, 475, 80, 30);
+            connectJButton.setBounds(450, 30, 80, 30);
+            contentScroll.setBounds(30, 100, 510, 200);
+            contentScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
+            inScroll.setBounds(30, 320, 510, 140);
+            inScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
+            jPanel.setBounds(30, 15, 250, 67);
 
-        clientJFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent arg0) {
-                cutConnect();
-                System.exit(0);
-            }
-        });
+            clientJFrame.setVisible(true);
 
+            clientJFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent arg0) {
+                    cutConnect();
+                    System.exit(0);
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     //连接到服务器的方法
