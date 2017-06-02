@@ -3,22 +3,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 /**
- * Created by think on 2017/5/29.
+ * Created by think on 2017/6/2.
  */
-public class ChatClient extends Frame {
+public class ChatClientPlus extends Frame {
+
 
     Socket s = null;
     DataOutputStream dos = null;
+    DataInputStream dis = null;
+    private boolean bConnected = false;
+
     TextArea taContent = new TextArea();
     TextField tfTxt = new TextField();
 
     public static void main(String[] args) {
-        new ChatClient().launchFrame();
+        new ChatClientPlus().launchFrame();
     }
 
     public void launchFrame() {
@@ -38,6 +43,7 @@ public class ChatClient extends Frame {
         tfTxt.addActionListener(new TFListener());
         setVisible(true);
         connect();
+        new Thread(new RecvThread()).start();
     }
 
     //1.06连接Server端
@@ -45,7 +51,9 @@ public class ChatClient extends Frame {
         try {
             s = new Socket("127.0.0.1", 8888);
             dos = new DataOutputStream(s.getOutputStream());
+            dis = new DataInputStream(s.getInputStream());
             System.out.println("connected");
+            bConnected = true;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,7 +71,7 @@ public class ChatClient extends Frame {
         }
     }
 
-    public void disConnect(){
+    public void disConnect() {
         try {
             dos.close();
         } catch (IOException e) {
@@ -78,10 +86,28 @@ public class ChatClient extends Frame {
         @Override
         public void actionPerformed(ActionEvent e) {
             String str = tfTxt.getText().trim();
-            taContent.setText(str);
+            //taContent.setText(str);
             tfTxt.setText("");
             sent(str);
         }
     }
+
+    //客户端接收来自服务端的消息
+    private class RecvThread implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                while (bConnected) {
+                    String str = dis.readUTF();
+                    //System.out.println("recv: " + str);
+                    taContent.setText(taContent.getText() + str + '\n');
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }
