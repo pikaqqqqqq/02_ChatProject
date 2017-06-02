@@ -21,6 +21,7 @@ public class MyChatClient implements ActionListener {
     Thread getThread = new Thread(new GetClient());
     private JFrame clientJFrame = null;
     private JButton connectJButton = null;
+    private JButton disConnectJButton = null;
     private JButton sentJButton = null;
     private JLabel ipJLabel = null;
     private JTextField ipJTextField = null;
@@ -57,6 +58,12 @@ public class MyChatClient implements ActionListener {
             connectJButton.setForeground(Color.WHITE);
             connectJButton.addActionListener(this);
 
+            disConnectJButton = new JButton("断开连接");
+            disConnectJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+            disConnectJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+            disConnectJButton.setForeground(Color.WHITE);
+            disConnectJButton.addActionListener(this);
+
             sentJButton = new JButton("发  送");
             sentJButton.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
             sentJButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));
@@ -91,6 +98,7 @@ public class MyChatClient implements ActionListener {
             clientJFrame.add(jPanel);
             clientJFrame.add(contentScroll);
             clientJFrame.add(connectJButton);
+            clientJFrame.add(disConnectJButton);
             clientJFrame.add(inScroll);
             clientJFrame.add(sentJButton);
 
@@ -98,7 +106,8 @@ public class MyChatClient implements ActionListener {
             inScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             inScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             sentJButton.setBounds(450, 475, 80, 30);
-            connectJButton.setBounds(450, 30, 80, 30);
+            connectJButton.setBounds(450, 10, 80, 30);
+            disConnectJButton.setBounds(450,50,80,30);
             contentScroll.setBounds(30, 100, 510, 200);
             contentScroll.setBorder(new LineBorder(new Color(68, 109, 153), 2, false));
             inScroll.setBounds(30, 320, 510, 140);
@@ -149,6 +158,7 @@ public class MyChatClient implements ActionListener {
     //断开连接的方法
     public void cutConnect() {
         try {
+            contentJTextArea.setText(contentJTextArea.getText() + "已断开连接！！" + '\n');
             out.close(); // 关闭输出流
             s.close(); // 关闭Socket连接
         } catch (Exception e) {
@@ -164,7 +174,15 @@ public class MyChatClient implements ActionListener {
                 connect(ipJTextField.getText(), portJTextField.getText());
                 getThread.start();
             } else {
-                contentJTextArea.setText(contentJTextArea.getText() + "已连接服务器！不要再点我啦啦啦啦！！" + '\n');
+                contentJTextArea.setText(contentJTextArea.getText() + "已连接服务器！请点击断开连接！！" + '\n');
+            }
+        }
+
+        if (e.getSource() == disConnectJButton) {
+            if (!b) {
+                contentJTextArea.setText(contentJTextArea.getText() + "还没有连接服务器！请点击连接！！" + '\n');
+            } else {
+                cutConnect();
             }
         }
 
