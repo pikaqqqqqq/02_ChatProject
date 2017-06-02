@@ -101,9 +101,18 @@ System.out.println(str);
             } finally {
                 try {
                     //1.09处理server端Exception的一般解决方法
-                    if (dis != null) dis.close();
-                    if(dos != null) dos.close();
-                    if (s != null) s.close();
+                    if (dis != null) {
+                        dis.close();
+                        dis = null;//关闭以后，将这块内存置空，java的垃圾回收器会去回收这部分没有人引用的内存（也可以不写这一句）
+                    }
+                    if(dos != null) {
+                        dos.close();
+                        dos = null;
+                    }
+                    if (s != null) {
+                        s.close();
+                        s = null;
+                    }
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

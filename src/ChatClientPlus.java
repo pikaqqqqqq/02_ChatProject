@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 /**
  * Created by think on 2017/6/2.
@@ -21,6 +22,8 @@ public class ChatClientPlus extends Frame {
 
     TextArea taContent = new TextArea();
     TextField tfTxt = new TextField();
+
+    Thread tRecv = new Thread(new RecvThread());
 
     public static void main(String[] args) {
         new ChatClientPlus().launchFrame();
@@ -43,7 +46,8 @@ public class ChatClientPlus extends Frame {
         tfTxt.addActionListener(new TFListener());
         setVisible(true);
         connect();
-        new Thread(new RecvThread()).start();
+
+        tRecv.start();
     }
 
     //1.06连接Server端
@@ -72,11 +76,33 @@ public class ChatClientPlus extends Frame {
     }
 
     public void disConnect() {
+
         try {
             dos.close();
+            dis.close();
+            s.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        /*
+        try {
+            bConnected = false;
+            tRecv.join();//线程停止：最先考虑join()方法
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                dos.close();
+                dis.close();
+                s.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        */
 
     }
 
@@ -103,11 +129,12 @@ public class ChatClientPlus extends Frame {
                     //System.out.println("recv: " + str);
                     taContent.setText(taContent.getText() + str + '\n');
                 }
+            } catch (SocketException e) {
+                System.out.println("退出了！！Bye");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
 
 }
