@@ -77,7 +77,9 @@ public class ChatServerPlus {
             try {
                 dos.writeUTF(str);
             } catch (IOException e) {
-                e.printStackTrace();
+                clients.remove(this);
+                System.out.println("client退出list！！");
+                //e.printStackTrace();
             }
         }
 

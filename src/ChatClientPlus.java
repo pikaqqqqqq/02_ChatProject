@@ -5,6 +5,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
@@ -71,6 +72,7 @@ public class ChatClientPlus extends Frame {
             dos.flush();
             //dos.close();//有bug，先去锻炼回来再改
         } catch (IOException e1) {
+
             e1.printStackTrace();
         }
     }
@@ -131,7 +133,10 @@ public class ChatClientPlus extends Frame {
                 }
             } catch (SocketException e) {
                 System.out.println("退出了！！Bye");
-            } catch (IOException e) {
+            } catch (EOFException e){
+                System.out.println("推出了！！Bye");
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
