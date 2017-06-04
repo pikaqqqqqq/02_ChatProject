@@ -11,5 +11,11 @@
 ```Java
 关键代码：
        ServerSocket ss = new ServerSocket(8888);//服务端监听8888端口
-       Socket s = ss.accept();
+       Socket s = ss.accept();//服务器端接收客户端，通过s.getInetAddress();方法可以拿到其ip，通过s.getPort();拿到其端口
+       
+```
+* 1.06连接Server端
+```java
+关键代码：
+       Socket s = new Socket("127.0.0.1",8888);//通过服务器IP和端口找到服务器，申请访问
 ```
