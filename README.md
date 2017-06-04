@@ -5,4 +5,7 @@
   关键代码：System.exit(0);
 * 1.04 利用内部类相应 TextField 的回车监听，继承ActionListener的借口，重写ActionPerformed方法
 * 1.05  创建server端
+  关键代码：
+           ServerSocket ss = new ServerSocket(8888);//服务端监听8888端口
+           Socket s = ss.accept();
   
